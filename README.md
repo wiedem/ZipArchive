@@ -34,15 +34,15 @@ Add a Swift Package reference to https://github.com/wiedem/ZipArchive.git (SSZip
 ## Usage
 
 ```swift
-import SSZipArchive
+import ZipArchive
 
-let success = SSZipArchive.createZipFile(
+let success = ZipArchive.createZipFile(
     atPath: zipPath,
     withContentsOfDirectory: sampleDataPath,
     keepParentDirectory: false
 )
 
-try SSZipArchive.unzipFile(
+try ZipArchive.unzipFile(
     atPath: zipPath,
     toDirectory: unzipPath
 )

@@ -1,5 +1,4 @@
 // swift-tools-version:5.7
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -15,15 +14,23 @@ let package = Package(
     products: [
         .library(
             name: "ZipArchive",
-            targets: ["ZipArchive"]
+            targets: ["ZipArchive", "ZipArchive_ObjC"]
         ),
     ],
+    dependencies: [],
     targets: [
         .target(
             name: "ZipArchive",
-            path: "SSZipArchive",
+            dependencies: ["ZipArchive_ObjC"],
+            path: "Source",
+            exclude: [],
+            publicHeadersPath: nil
+        ),
+        .target(
+            name: "ZipArchive_ObjC",
+            path: "CSource",
             resources: [
-                .process("Supporting Files/PrivacyInfo.xcprivacy"),
+                .process("../Supporting Files/PrivacyInfo.xcprivacy"),
             ],
             cSettings: [
                 .define("HAVE_INTTYPES_H"),
@@ -39,5 +46,6 @@ let package = Package(
                 .linkedFramework("Security"),
             ]
         )
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )

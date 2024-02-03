@@ -7,10 +7,11 @@
 
 import Cocoa
 
-#if UseCarthage
-    import ZipArchive
-#else
-    import SSZipArchive
+#if canImport(ZipArchive)
+import ZipArchive
+#endif
+#if canImport(SSZipArchive)
+import SSZipArchive
 #endif
 
 class ViewController: NSViewController {
@@ -54,7 +55,7 @@ class ViewController: NSViewController {
         
         let encryption: ArchiveEncryption = !password.isEmpty ? .winZipAES(password) : .noEncryption
 
-        let success = SSZipArchive.createZipFile(
+        let success = ZipArchive.createZipFile(
             atPath: zipPath!,
             withContentsOfDirectory: samplePath,
             keepParentDirectory: false,
@@ -86,7 +87,7 @@ class ViewController: NSViewController {
         let password = passwordField.stringValue
 
         do {
-            try SSZipArchive.unzipFile(
+            try ZipArchive.unzipFile(
                 atPath: zipPath,
                 toDirectory: unzipPath,
                 nestedZipLevel: 1,
@@ -128,7 +129,7 @@ class ViewController: NSViewController {
         guard let zipPath = zipPath else {
             return
         }
-        let success = SSZipArchive.isFilePasswordProtected(atPath: zipPath)
+        let success = ZipArchive.isFilePasswordProtected(atPath: zipPath)
         if success {
             print("Yes, it's password protected.")
             info.stringValue = "Yes, it's password protected."

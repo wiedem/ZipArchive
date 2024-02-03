@@ -1,37 +1,41 @@
 import Foundation
+#if canImport(ZipArchive_ObjC)
+import ZipArchive_ObjC
+#endif
 
-public enum CompressionLevel: Int32 {
-    case noCompression = 0
-    case bestSpeed = 1
-    case bestCompression = 9
-    case `default` = -1
-}
+public enum ZipArchive {}
 
-public enum ArchiveEncryption {
-    case noEncryption
-    case winZipAES(String)
-    case pkware(String)
-}
+public extension ZipArchive {
+    typealias ZipArchiveDelegate = SSZipArchiveDelegate
 
-extension ArchiveEncryption {
-    var password: String? {
-        switch self {
-        case let .pkware(password), let .winZipAES(password):
-            return password
-        case .noEncryption:
-            return nil
-        }
+    static func isFilePasswordProtected(atPath path: String) -> Bool {
+        SSZipArchive.isFilePasswordProtected(atPath: path)
     }
 
-    var isAES: Bool {
-        if case .winZipAES = self {
-            return true
+    static func isPasswordValidForArchive(atPath path: String, password: String) throws -> Bool {
+        var error: NSError?
+        let isValid = SSZipArchive.isPasswordValidForArchive(atPath: path, password: password, error: &error)
+        if let error {
+            throw error
         }
-        return false
+        return isValid
+    }
+
+    static func payloadSizeForArchive(atPath path: String) throws -> Int {
+        var error: NSError?
+        let size = SSZipArchive.payloadSizeForArchive(atPath: path, error: &error)
+        if let error {
+            throw error
+        }
+        return size.intValue
+    }
+
+    static func readGlobalCommentOfArchive(atPath path: String) throws -> String? {
+        try SSZipArchive.readGlobalCommentOfArchive(atPath: path)
     }
 }
 
-public extension SSZipArchive {
+public extension ZipArchive {
     typealias CreateZipProgressHandler = (_ entryNumber: UInt, _ total: UInt) -> Void
 
     static func createZipFile(
@@ -43,7 +47,7 @@ public extension SSZipArchive {
         globalComment: String? = nil,
         progressHandler: CreateZipProgressHandler? = nil
     ) -> Bool {
-        __createZipFile(
+        SSZipArchive.__createZipFile(
             atPath: destinationPath,
             withContentsOfDirectory: sourceDirectory,
             keepParentDirectory: keepParentDirectory,
@@ -62,7 +66,7 @@ public extension SSZipArchive {
         withGlobalComment globalComment: String? = nil,
         progressHandler: CreateZipProgressHandler? = nil
     ) -> Bool {
-        __createZipFile(
+        SSZipArchive.__createZipFile(
             atPath: destinationPath,
             withFilesAtPaths: sourcePaths,
             withPassword: password,
@@ -72,7 +76,7 @@ public extension SSZipArchive {
     }
 }
 
-public extension SSZipArchive {
+public extension ZipArchive {
     typealias UnzipProgressHandler = (_ entry: String, _ zipInfo: unz_file_info, _ entryNumber: Int, _ total: Int) -> Void
 
     static func unzipFile(
@@ -83,12 +87,12 @@ public extension SSZipArchive {
         symlinksValidWithin validSymlinksPath: String?,
         nestedZipLevel: Int = 0,
         password: String? = nil,
-        delegate: SSZipArchiveDelegate? = nil,
+        delegate: ZipArchiveDelegate? = nil,
         progressHandler: UnzipProgressHandler? = nil
     ) throws {
         var error: NSError?
 
-        __unzipFile(
+        SSZipArchive.__unzipFile(
             atPath: sourcePath,
             toDestination: destinationPath,
             preserveAttributes: preserveAttributes,
@@ -108,7 +112,7 @@ public extension SSZipArchive {
     }
 }
 
-public extension SSZipArchive {
+public extension ZipArchive {
     static func unzipFile(
         atPath sourcePath: String,
         toDirectory destinationPath: String,
@@ -116,7 +120,7 @@ public extension SSZipArchive {
         overwrite: Bool = true,
         nestedZipLevel: Int = 0,
         password: String? = nil,
-        delegate: SSZipArchiveDelegate? = nil,
+        delegate: ZipArchiveDelegate? = nil,
         progressHandler: UnzipProgressHandler? = nil
     ) throws {
         try unzipFile(
@@ -130,57 +134,5 @@ public extension SSZipArchive {
             delegate: delegate,
             progressHandler: progressHandler
         )
-    }
-}
-
-public extension SSZipArchive {
-    static func unzipFile(
-        atPath sourcePath: String,
-        toDirectory destinationPath: String,
-        preserveAttributes: Bool = true,
-        overwrite: Bool = true,
-        nestedZipLevel: Int = 0,
-        password: String? = nil,
-        delegate: SSZipArchiveDelegate? = nil,
-        progressHandler: UnzipProgressHandler? = nil
-    ) async throws {
-        try {
-           try unzipFile(
-                atPath: sourcePath,
-                toDirectory: destinationPath,
-                preserveAttributes: preserveAttributes,
-                overwrite: overwrite,
-                nestedZipLevel: nestedZipLevel,
-                password: password,
-                delegate: delegate,
-                progressHandler: progressHandler
-            )
-        }()
-    }
-
-    static func unzipFile(
-        atPath sourcePath: String,
-        toDirectory destinationPath: String,
-        preserveAttributes: Bool = true,
-        overwrite: Bool = true,
-        symlinksValidWithin validSymlinksPath: String?,
-        nestedZipLevel: Int = 0,
-        password: String? = nil,
-        delegate: SSZipArchiveDelegate? = nil,
-        progressHandler: UnzipProgressHandler? = nil
-    ) async throws {
-        try {
-            try unzipFile(
-                atPath: sourcePath,
-                toDirectory: destinationPath,
-                preserveAttributes: preserveAttributes,
-                overwrite: overwrite,
-                symlinksValidWithin: validSymlinksPath,
-                nestedZipLevel: nestedZipLevel,
-                password: password,
-                delegate: delegate,
-                progressHandler: progressHandler
-            )
-        }()
     }
 }
