@@ -146,6 +146,9 @@
 		37952C891F63BBDA00DD6677 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = B423AE491C0DF7950004A2F1 /* SSZipArchive.m */; };
 		37952C8B1F63BBE400DD6677 /* ZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = B423AE4A1C0DF7950004A2F1 /* ZipArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8BD96A752B6EB1A1003A8DAA /* SSZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD96A742B6EB1A1003A8DAA /* SSZipArchive.swift */; };
+		8BD96A802B6EBC0C003A8DAA /* SSZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD96A742B6EB1A1003A8DAA /* SSZipArchive.swift */; };
+		8BD96A812B6EBC0C003A8DAA /* SSZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD96A742B6EB1A1003A8DAA /* SSZipArchive.swift */; };
+		8BD96A822B6EBC0C003A8DAA /* SSZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD96A742B6EB1A1003A8DAA /* SSZipArchive.swift */; };
 		93CE5D5E227FE5C50003464F /* SSZipCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 93CE5D5D227FE5C50003464F /* SSZipCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		93CE5D5F227FE5C50003464F /* SSZipCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 93CE5D5D227FE5C50003464F /* SSZipCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		93CE5D60227FE5C50003464F /* SSZipCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 93CE5D5D227FE5C50003464F /* SSZipCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -205,7 +208,7 @@
 		37952C5E1F63BB7100DD6677 /* ZipArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZipArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BD96A742B6EB1A1003A8DAA /* SSZipArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSZipArchive.swift; sourceTree = "<group>"; };
 		8BD96A7B2B6EBAE2003A8DAA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
-		8BD96A7C2B6EBAEE003A8DAA /* SSZipArchive.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = SSZipArchive.podspec; sourceTree = SOURCE_ROOT; };
+		8BD96A7C2B6EBAEE003A8DAA /* SSZipArchive.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SSZipArchive.podspec; sourceTree = SOURCE_ROOT; };
 		93CE5D5D227FE5C50003464F /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
 		AFF75A241C37279600F450AC /* ZipArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZipArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B423AE1A1C0DF76A0004A2F1 /* ZipArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZipArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -640,6 +643,7 @@
 				3775F3572276B14400A1840B /* mz_compat.c in Sources */,
 				378439B4227ABC7B000BC165 /* mz_crypt_apple.c in Sources */,
 				3775F39F2276B14400A1840B /* mz_strm_zlib.c in Sources */,
+				8BD96A812B6EBC0C003A8DAA /* SSZipArchive.swift in Sources */,
 				3775F3832276B14400A1840B /* mz_zip_rw.c in Sources */,
 				3775F3632276B14400A1840B /* mz_os.c in Sources */,
 				3775F3C32276B14400A1840B /* mz_strm_os_posix.c in Sources */,
@@ -663,6 +667,7 @@
 				3775F3582276B14400A1840B /* mz_compat.c in Sources */,
 				378439B5227ABC7B000BC165 /* mz_crypt_apple.c in Sources */,
 				3775F3A02276B14400A1840B /* mz_strm_zlib.c in Sources */,
+				8BD96A822B6EBC0C003A8DAA /* SSZipArchive.swift in Sources */,
 				3775F3842276B14400A1840B /* mz_zip_rw.c in Sources */,
 				3775F3642276B14400A1840B /* mz_os.c in Sources */,
 				3775F3C42276B14400A1840B /* mz_strm_os_posix.c in Sources */,
@@ -686,6 +691,7 @@
 				3775F3562276B14400A1840B /* mz_compat.c in Sources */,
 				378439B3227ABC7B000BC165 /* mz_crypt_apple.c in Sources */,
 				3775F39E2276B14400A1840B /* mz_strm_zlib.c in Sources */,
+				8BD96A802B6EBC0C003A8DAA /* SSZipArchive.swift in Sources */,
 				3775F3822276B14400A1840B /* mz_zip_rw.c in Sources */,
 				3775F3622276B14400A1840B /* mz_os.c in Sources */,
 				3775F3C22276B14400A1840B /* mz_strm_os_posix.c in Sources */,
