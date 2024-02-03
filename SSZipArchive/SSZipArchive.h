@@ -31,7 +31,9 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 
 // Password check
 + (BOOL)isFilePasswordProtectedAtPath:(NSString *)path;
-+ (BOOL)isPasswordValidForArchiveAtPath:(NSString *)path password:(NSString *)pw error:(NSError * _Nullable * _Nullable)error NS_SWIFT_NOTHROW;
++ (BOOL)isPasswordValidForArchiveAtPath:(NSString *)path
+                               password:(NSString *)pw
+                                  error:(NSError * _Nullable * _Nullable)error NS_SWIFT_NOTHROW;
 
 // Total payload size
 + (NSNumber *)payloadSizeForArchiveAtPath:(NSString *)path error:(NSError **)error;
@@ -40,14 +42,17 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 + (nullable NSString *)readGlobalCommentOfArchiveAtPath:(NSString *)path error:(NSError **)error;
 
 // Unzip
-+ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination;
-+ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination delegate:(nullable id<SSZipArchiveDelegate>)delegate;
++ (BOOL)unzipFileAtPath:(NSString *)path
+          toDestination:(NSString *)destination NS_REFINED_FOR_SWIFT;
++ (BOOL)unzipFileAtPath:(NSString *)path
+          toDestination:(NSString *)destination
+               delegate:(nullable id<SSZipArchiveDelegate>)delegate NS_REFINED_FOR_SWIFT;
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
               overwrite:(BOOL)overwrite
                password:(nullable NSString *)password
-                  error:(NSError * *)error;
+                  error:(NSError * *)error NS_REFINED_FOR_SWIFT;
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
@@ -62,19 +67,19 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
               overwrite:(BOOL)overwrite
                password:(nullable NSString *)password
                   error:(NSError * *)error
-               delegate:(nullable id<SSZipArchiveDelegate>)delegate;
+               delegate:(nullable id<SSZipArchiveDelegate>)delegate NS_REFINED_FOR_SWIFT;
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
         progressHandler:(void (^_Nullable)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler;
+      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler NS_REFINED_FOR_SWIFT;
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
               overwrite:(BOOL)overwrite
                password:(nullable NSString *)password
         progressHandler:(void (^_Nullable)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler;
+      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler NS_REFINED_FOR_SWIFT;
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
@@ -85,7 +90,7 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
                   error:(NSError **)error
                delegate:(nullable id<SSZipArchiveDelegate>)delegate
         progressHandler:(void (^_Nullable)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler;
+      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler NS_REFINED_FOR_SWIFT;
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
@@ -97,7 +102,7 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
                   error:(NSError **)error
                delegate:(nullable id<SSZipArchiveDelegate>)delegate
         progressHandler:(void (^_Nullable)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler;
+      completionHandler:(void (^_Nullable)(NSString *path, BOOL succeeded, NSError * _Nullable error))completionHandler NS_REFINED_FOR_SWIFT;
 
 // Zip
 // default compression level is Z_DEFAULT_COMPRESSION (from "zlib.h")
