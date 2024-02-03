@@ -36,6 +36,9 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 // Total payload size
 + (NSNumber *)payloadSizeForArchiveAtPath:(NSString *)path error:(NSError **)error;
 
+// Global comment
++ (nullable NSString *)readGlobalCommentOfArchiveAtPath:(NSString *)path error:(NSError **)error;
+
 // Unzip
 + (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination;
 + (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination delegate:(nullable id<SSZipArchiveDelegate>)delegate;
@@ -101,21 +104,43 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 // keepParentDirectory: if YES, then unzipping will give `directoryName/fileName`. If NO, then unzipping will just give `fileName`. Default is NO.
 
 // without password
-+ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray<NSString *> *)paths;
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath;
++ (BOOL)createZipFileAtPath:(NSString *)path
+           withFilesAtPaths:(NSArray<NSString *> *)paths
+          withGlobalComment:(nullable NSString *)globalComment;
++ (BOOL)createZipFileAtPath:(NSString *)path
+    withContentsOfDirectory:(NSString *)directoryPath
+          withGlobalComment:(nullable NSString *)globalComment;
 
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory;
++ (BOOL)createZipFileAtPath:(NSString *)path
+    withContentsOfDirectory:(NSString *)directoryPath
+        keepParentDirectory:(BOOL)keepParentDirectory
+          withGlobalComment:(nullable NSString *)globalComment;
 
 // with optional password, default encryption is AES
 // don't use AES if you need compatibility with native macOS unzip and Archive Utility
-+ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray<NSString *> *)paths withPassword:(nullable NSString *)password;
-+ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray<NSString *> *)paths withPassword:(nullable NSString *)password progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath withPassword:(nullable NSString *)password;
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory withPassword:(nullable NSString *)password;
++ (BOOL)createZipFileAtPath:(NSString *)path
+           withFilesAtPaths:(NSArray<NSString *> *)paths
+               withPassword:(nullable NSString *)password
+          withGlobalComment:(nullable NSString *)globalComment;
++ (BOOL)createZipFileAtPath:(NSString *)path
+           withFilesAtPaths:(NSArray<NSString *> *)paths
+               withPassword:(nullable NSString *)password
+          withGlobalComment:(nullable NSString *)globalComment
+            progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
++ (BOOL)createZipFileAtPath:(NSString *)path
+    withContentsOfDirectory:(NSString *)directoryPath
+               withPassword:(nullable NSString *)password
+          withGlobalComment:(nullable NSString *)globalComment;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
         keepParentDirectory:(BOOL)keepParentDirectory
                withPassword:(nullable NSString *)password
+          withGlobalComment:(nullable NSString *)globalComment;
++ (BOOL)createZipFileAtPath:(NSString *)path
+    withContentsOfDirectory:(NSString *)directoryPath
+        keepParentDirectory:(BOOL)keepParentDirectory
+               withPassword:(nullable NSString *)password
+          withGlobalComment:(nullable NSString *)globalComment
          andProgressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
@@ -123,9 +148,14 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
            compressionLevel:(int)compressionLevel
                    password:(nullable NSString *)password
                         AES:(BOOL)aes
+              globalComment:(nullable NSString *)globalComment
             progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
 //suport symlink compress --file
-+ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray<NSString *> *)paths withPassword:(nullable NSString *)password keepSymlinks:(BOOL)keeplinks;
++ (BOOL)createZipFileAtPath:(NSString *)path
+           withFilesAtPaths:(NSArray<NSString *> *)paths
+               withPassword:(nullable NSString *)password
+          withGlobalComment:(nullable NSString *)globalComment
+               keepSymlinks:(BOOL)keeplinks;
 //suport symlink compress --directory
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
@@ -133,6 +163,7 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
            compressionLevel:(int)compressionLevel
                    password:(nullable NSString *)password
                         AES:(BOOL)aes
+              globalComment:(nullable NSString *)globalComment
             progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler
                keepSymlinks:(BOOL)keeplinks;
 
@@ -153,7 +184,7 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 - (BOOL)writeData:(NSData *)data filename:(nullable NSString *)filename withPassword:(nullable NSString *)password;
 - (BOOL)writeData:(NSData *)data filename:(nullable NSString *)filename compressionLevel:(int)compressionLevel password:(nullable NSString *)password AES:(BOOL)aes;
 
-- (BOOL)close;
+- (BOOL)close:(nullable NSString *)globalComment;
 
 @end
 
@@ -162,6 +193,7 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 @optional
 
 - (void)zipArchiveWillUnzipArchiveAtPath:(NSString *)path zipInfo:(unz_global_info)zipInfo;
+- (void)zipArchiveWillUnzipArchiveAtPath:(NSString *)path zipInfo:(unz_global_info)zipInfo globalComment:(NSString *)globalComment;
 - (void)zipArchiveDidUnzipArchiveAtPath:(NSString *)path zipInfo:(unz_global_info)zipInfo unzippedPath:(NSString *)unzippedPath;
 
 - (BOOL)zipArchiveShouldUnzipFileAtIndex:(NSInteger)fileIndex totalFiles:(NSInteger)totalFiles archivePath:(NSString *)archivePath fileInfo:(unz_file_info)fileInfo;

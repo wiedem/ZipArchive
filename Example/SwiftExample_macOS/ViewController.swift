@@ -58,6 +58,7 @@ class ViewController: NSViewController {
                                                  compressionLevel: -1,
                                                  password: !password.isEmpty ? password : nil,
                                                  aes: true,
+                                                 globalComment: nil,
                                                  progressHandler: nil)
         if success {
             print("Success zip")
