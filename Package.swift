@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -13,21 +13,25 @@ let package = Package(
         .macCatalyst("13.0")
     ],
     products: [
-        .library(name: "ZipArchive", targets: ["ZipArchive"]),
+        .library(
+            name: "ZipArchive",
+            targets: ["ZipArchive"]
+        ),
     ],
     targets: [
         .target(
             name: "ZipArchive",
             path: "SSZipArchive",
             resources: [
-                .process("Supporting Files/PrivacyInfo.xcprivacy")],
+                .process("Supporting Files/PrivacyInfo.xcprivacy"),
+            ],
             cSettings: [
                 .define("HAVE_INTTYPES_H"),
                 .define("HAVE_PKCRYPT"),
                 .define("HAVE_STDINT_H"),
                 .define("HAVE_WZAES"),
                 .define("HAVE_ZLIB"),
-                .define("ZLIB_COMPAT")
+                .define("ZLIB_COMPAT"),
             ],
             linkerSettings: [
                 .linkedLibrary("z"),
