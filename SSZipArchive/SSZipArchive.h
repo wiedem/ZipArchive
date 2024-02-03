@@ -112,42 +112,42 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 // without password
 + (BOOL)createZipFileAtPath:(NSString *)path
            withFilesAtPaths:(NSArray<NSString *> *)paths
-          withGlobalComment:(nullable NSString *)globalComment;
+          withGlobalComment:(nullable NSString *)globalComment NS_REFINED_FOR_SWIFT;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
-          withGlobalComment:(nullable NSString *)globalComment;
+          withGlobalComment:(nullable NSString *)globalComment NS_REFINED_FOR_SWIFT;
 
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
         keepParentDirectory:(BOOL)keepParentDirectory
-          withGlobalComment:(nullable NSString *)globalComment;
+          withGlobalComment:(nullable NSString *)globalComment NS_REFINED_FOR_SWIFT;
 
 // with optional password, default encryption is AES
 // don't use AES if you need compatibility with native macOS unzip and Archive Utility
 + (BOOL)createZipFileAtPath:(NSString *)path
            withFilesAtPaths:(NSArray<NSString *> *)paths
                withPassword:(nullable NSString *)password
-          withGlobalComment:(nullable NSString *)globalComment;
+          withGlobalComment:(nullable NSString *)globalComment NS_REFINED_FOR_SWIFT;
 + (BOOL)createZipFileAtPath:(NSString *)path
            withFilesAtPaths:(NSArray<NSString *> *)paths
                withPassword:(nullable NSString *)password
           withGlobalComment:(nullable NSString *)globalComment
-            progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
+            progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler NS_REFINED_FOR_SWIFT;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
                withPassword:(nullable NSString *)password
-          withGlobalComment:(nullable NSString *)globalComment;
+          withGlobalComment:(nullable NSString *)globalComment NS_REFINED_FOR_SWIFT;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
         keepParentDirectory:(BOOL)keepParentDirectory
                withPassword:(nullable NSString *)password
-          withGlobalComment:(nullable NSString *)globalComment;
+          withGlobalComment:(nullable NSString *)globalComment NS_REFINED_FOR_SWIFT;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
         keepParentDirectory:(BOOL)keepParentDirectory
                withPassword:(nullable NSString *)password
           withGlobalComment:(nullable NSString *)globalComment
-         andProgressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
+         andProgressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler NS_REFINED_FOR_SWIFT;
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
         keepParentDirectory:(BOOL)keepParentDirectory
@@ -155,13 +155,13 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
                    password:(nullable NSString *)password
                         AES:(BOOL)aes
               globalComment:(nullable NSString *)globalComment
-            progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler;
+            progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler NS_REFINED_FOR_SWIFT;
 //suport symlink compress --file
 + (BOOL)createZipFileAtPath:(NSString *)path
            withFilesAtPaths:(NSArray<NSString *> *)paths
                withPassword:(nullable NSString *)password
           withGlobalComment:(nullable NSString *)globalComment
-               keepSymlinks:(BOOL)keeplinks;
+               keepSymlinks:(BOOL)keeplinks NS_REFINED_FOR_SWIFT;
 //suport symlink compress --directory
 + (BOOL)createZipFileAtPath:(NSString *)path
     withContentsOfDirectory:(NSString *)directoryPath
@@ -171,7 +171,7 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
                         AES:(BOOL)aes
               globalComment:(nullable NSString *)globalComment
             progressHandler:(void(^ _Nullable)(NSUInteger entryNumber, NSUInteger total))progressHandler
-               keepSymlinks:(BOOL)keeplinks;
+               keepSymlinks:(BOOL)keeplinks NS_REFINED_FOR_SWIFT;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithPath:(NSString *)path NS_DESIGNATED_INITIALIZER;

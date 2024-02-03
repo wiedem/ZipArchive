@@ -47,14 +47,18 @@ class ViewController: UIViewController {
         print("Zip path:", zipPath!)
         let password = passwordField.text ?? ""
 
-        let success = SSZipArchive.createZipFile(atPath: zipPath!,
-                                                 withContentsOfDirectory: samplePath,
-                                                 keepParentDirectory: false,
-                                                 compressionLevel: -1,
-                                                 password: !password.isEmpty ? password : nil,
-                                                 aes: true,
-                                                 globalComment: nil,
-                                                 progressHandler: nil)
+        let encryption: ArchiveEncryption = !password.isEmpty ? .winZipAES(password) : .noEncryption
+
+        let success = SSZipArchive.createZipFile(
+            atPath: zipPath!,
+            withContentsOfDirectory: samplePath,
+            keepParentDirectory: false,
+            compressionLevel: .default,
+            encryption: encryption,
+            globalComment: nil,
+            progressHandler: nil
+        )
+
         if success {
             print("Success zip")
             info.text = "Success zip"
