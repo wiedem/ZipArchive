@@ -17,6 +17,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var globalCommentField: UITextField!
     @IBOutlet weak var zipButton: UIButton!
     @IBOutlet weak var unzipButton: UIButton!
     @IBOutlet weak var hasPasswordButton: UIButton!
@@ -46,6 +47,7 @@ class ViewController: UIViewController {
         zipPath = tempZipPath()
         print("Zip path:", zipPath!)
         let password = passwordField.text ?? ""
+        let globalComment = globalCommentField.text ?? nil
 
         let encryption: ArchiveEncryption = !password.isEmpty ? .winZipAES(password) : .noEncryption
 
@@ -53,10 +55,8 @@ class ViewController: UIViewController {
             atPath: zipPath!,
             withContentsOfDirectory: samplePath,
             keepParentDirectory: false,
-            compressionLevel: .default,
             encryption: encryption,
-            globalComment: nil,
-            progressHandler: nil
+            globalComment: globalComment
         )
 
         if success {
@@ -87,16 +87,14 @@ class ViewController: UIViewController {
             try SSZipArchive.unzipFile(
                 atPath: zipPath,
                 toDirectory: unzipPath,
-                preserveAttributes: true,
-                overwrite: true,
                 nestedZipLevel: 1,
-                password: !password.isEmpty ? password : nil,
-                delegate: nil,
-                progressHandler: nil
+                password: !password.isEmpty ? password : nil
             )
 
-            print("Success unzip")
-            info.text = "Success unzip"
+            let comment = try? SSZipArchive.readGlobalCommentOfArchive(atPath: zipPath)
+
+            print("Success unzip - global comment: \(comment ?? "<n/a>")")
+            info.text = "Success unzip - global comment: \(comment ?? "<n/a>")"
         } catch {
             print("No success unzip: \(error)")
             info.text = "No success unzip: \(error)"

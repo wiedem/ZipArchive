@@ -58,10 +58,7 @@ class ViewController: NSViewController {
             atPath: zipPath!,
             withContentsOfDirectory: samplePath,
             keepParentDirectory: false,
-            compressionLevel: .default,
-            encryption: encryption,
-            globalComment: nil,
-            progressHandler: nil
+            encryption: encryption
         )
 
         if success {
@@ -92,12 +89,8 @@ class ViewController: NSViewController {
             try SSZipArchive.unzipFile(
                 atPath: zipPath,
                 toDirectory: unzipPath,
-                preserveAttributes: true,
-                overwrite: true,
                 nestedZipLevel: 1,
-                password: !password.isEmpty ? password : nil,
-                delegate: nil,
-                progressHandler: nil
+                password: !password.isEmpty ? password : nil
             )
 
             print("Success unzip")
