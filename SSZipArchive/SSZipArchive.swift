@@ -44,6 +44,7 @@ public extension SSZipArchive {
             toDestination: destinationPath,
             preserveAttributes: preserveAttributes,
             overwrite: overwrite,
+            symlinksValidWithin: validSymlinksPath,
             nestedZipLevel: nestedZipLevel,
             password: password,
             error: &error,
