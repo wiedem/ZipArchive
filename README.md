@@ -1,4 +1,4 @@
-[![CI](https://github.com/ZipArchive/ZipArchive/workflows/CI/badge.svg)](https://github.com/ZipArchive/ZipArchive/actions?query=workflow%3ACI)
+[![CI](https://github.com/wiedem/ZipArchive/workflows/CI/badge.svg)](https://github.com/wiedem/ZipArchive/actions?query=workflow%3ACI)
 
 # SSZipArchive
 
@@ -41,7 +41,7 @@ You should define your minimum deployment target explicitly, like:
 Recommended CocoaPods version should be at least CocoaPods 1.7.5.
 
 ### SPM
-Add a Swift Package reference to https://github.com/ZipArchive/ZipArchive.git (SSZipArchive 2.5.0 and higher or master)
+Add a Swift Package reference to https://github.com/wiedem/ZipArchive.git (SSZipArchive 2.5.0 and higher or master)
 
 ### Carthage
 In your Cartfile:  
@@ -96,4 +96,4 @@ SSZipArchive is protected under the [MIT license](https://github.com/samsoffes/s
 * Thank you [@randomsequence](https://github.com/randomsequence) for implementing the creation support tech.
 * Thank you [@johnezang](https://github.com/johnezang) for all his amazing help along the way.
 * Thank you [@nmoinvaz](https://github.com/nmoinvaz) for minizip-ng (formally minizip), the core of ZipArchive.
-* Thank you to [all the contributors](https://github.com/ZipArchive/ZipArchive/graphs/contributors).
+* Thank you to [all the contributors](https://github.com/wiedem/ZipArchive/graphs/contributors).

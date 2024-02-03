@@ -209,6 +209,8 @@
 		8BD96A742B6EB1A1003A8DAA /* SSZipArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSZipArchive.swift; sourceTree = "<group>"; };
 		8BD96A7B2B6EBAE2003A8DAA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
 		8BD96A7C2B6EBAEE003A8DAA /* SSZipArchive.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SSZipArchive.podspec; sourceTree = SOURCE_ROOT; };
+		8BD96A832B6EC3A3003A8DAA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = SOURCE_ROOT; };
+		8BD96A842B6EC3A3003A8DAA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		93CE5D5D227FE5C50003464F /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
 		AFF75A241C37279600F450AC /* ZipArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZipArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B423AE1A1C0DF76A0004A2F1 /* ZipArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZipArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,6 +269,8 @@
 			children = (
 				8BD96A7B2B6EBAE2003A8DAA /* Package.swift */,
 				8BD96A7C2B6EBAEE003A8DAA /* SSZipArchive.podspec */,
+				8BD96A832B6EC3A3003A8DAA /* LICENSE.txt */,
+				8BD96A842B6EC3A3003A8DAA /* README.md */,
 				330100222AC89AA8001431B0 /* PrivacyInfo.xcprivacy */,
 			);
 			path = "Supporting Files";
