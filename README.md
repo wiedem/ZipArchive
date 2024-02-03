@@ -1,5 +1,3 @@
-[![CI](https://github.com/wiedem/ZipArchive/workflows/CI/badge.svg)](https://github.com/wiedem/ZipArchive/actions?query=workflow%3ACI)
-
 # SSZipArchive
 
 ZipArchive is a simple utility class for zipping and unzipping files on iOS, macOS and tvOS.
@@ -26,63 +24,28 @@ We will not support versions of ZipArchive that use dependencies with known vuln
 
 ## Installation and Setup
 
-
-*The main release branch is configured to support Objective-C and Swift 4+.*
+*The main release branch is configured to support Objective-C and Swift 5+.*
 
 SSZipArchive works on Xcode 12 and above, iOS 15.5 and above, tvOS 15.4 and above, macOS 10.15 and above, watchOS 8.4 and above.
 
-### CocoaPods
-In your Podfile:  
-`pod 'SSZipArchive'`
-
-You should define your minimum deployment target explicitly, like:
-`platform :ios, '15.5'`
-
-Recommended CocoaPods version should be at least CocoaPods 1.7.5.
-
 ### SPM
-Add a Swift Package reference to https://github.com/wiedem/ZipArchive.git (SSZipArchive 2.5.0 and higher or master)
-
-### Carthage
-In your Cartfile:  
-`github "ZipArchive/ZipArchive"`
-
-We do not release a Carthage pre-built package. Developers are encouraged to build one themselves.
-
-### Manual
-
-1. Add the `SSZipArchive` and `minizip` folders to your project.
-2. Add the `libz` and `libiconv` libraries to your target.
-3. Add the `Security` framework to your target.
-4. Add the following GCC_PREPROCESSOR_DEFINITIONS: `HAVE_INTTYPES_H HAVE_PKCRYPT HAVE_STDINT_H HAVE_WZAES HAVE_ZLIB ZLIB_COMPAT $(inherited)`.
-
-SSZipArchive requires ARC.
+Add a Swift Package reference to https://github.com/wiedem/ZipArchive.git (SSZipArchive 3.0.0 and higher or main)
 
 ## Usage
 
-### Objective-C
-
-```objective-c
-
-//Import "#import <ZipArchive.h>" for SPM/Carthage, and "#import <SSZipArchive.h>" for CocoaPods.
-
-// Create
-[SSZipArchive createZipFileAtPath:zipPath withContentsOfDirectory:sampleDataPath];
-
-// Unzip
-[SSZipArchive unzipFileAtPath:zipPath toDestination:unzipPath];
-```
-
-### Swift
-
 ```swift
-//Import "import ZipArchive" for SPM/Carthage, and "import SSZipArchive" for CocoaPods.
+import SSZipArchive
 
-// Create
-SSZipArchive.createZipFileAtPath(zipPath, withContentsOfDirectory: sampleDataPath)
+let success = SSZipArchive.createZipFile(
+    atPath: zipPath,
+    withContentsOfDirectory: sampleDataPath,
+    keepParentDirectory: false
+)
 
-// Unzip
-SSZipArchive.unzipFileAtPath(zipPath, toDestination: unzipPath)
+try SSZipArchive.unzipFile(
+    atPath: zipPath,
+    toDirectory: unzipPath
+)
 ```
 
 ## License
