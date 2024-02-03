@@ -547,6 +547,7 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
             }
             
             unzGetCurrentFileInfo(zip, &fileInfo, filename, fileInfo.size_filename + 1, NULL, 0, NULL, 0);
+            
             filename[fileInfo.size_filename] = '\0';
             
             BOOL fileIsSymbolicLink = _fileIsSymbolicLink(&fileInfo);
@@ -622,7 +623,9 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                                     NSString *message = [NSString stringWithFormat:@"Failed to write file (check your free space)"];
                                     NSLog(@"[SSZipArchive] %@", message);
                                     success = NO;
-                                    unzippingError = [NSError errorWithDomain:@"SSZipArchiveErrorDomain" code:SSZipArchiveErrorCodeFailedToWriteFile userInfo:@{NSLocalizedDescriptionKey: message}];
+                                    unzippingError = [NSError errorWithDomain:@"SSZipArchiveErrorDomain"
+                                                                         code:SSZipArchiveErrorCodeFailedToWriteFile
+                                                                     userInfo:@{NSLocalizedDescriptionKey: message}];
                                     break;
                                 }
                             }
@@ -636,10 +639,10 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                             success = NO;
                         }
                     }
-                    
+
                     if (fp) {
                         fclose(fp);
-                        
+
                         if (nestedZipLevel
                             && [fullPath.pathExtension.lowercaseString isEqualToString:@"zip"]
                             && [self unzipFileAtPath:fullPath
@@ -656,12 +659,12 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                             [directoriesModificationDates removeLastObject];
                             [[NSFileManager defaultManager] removeItemAtPath:fullPath error:nil];
                         } else if (preserveAttributes) {
-                            
+
                             // Set the original datetime property
                             if (fileInfo.mz_dos_date != 0) {
                                 NSDate *orgDate = [[self class] _dateWithMSDOSFormat:(UInt32)fileInfo.mz_dos_date];
                                 NSDictionary *attr = @{NSFileModificationDate: orgDate};
-                                
+
                                 if (attr) {
                                     if (![fileManager setAttributes:attr ofItemAtPath:fullPath error:nil]) {
                                         // Can't set attributes
@@ -669,19 +672,19 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                                     }
                                 }
                             }
-                            
+
                             // Set the original permissions on the file (+read/write to solve #293)
                             uLong permissions = fileInfo.external_fa >> 16 | 0b110000000;
                             if (permissions != 0) {
                                 // Store it into a NSNumber
                                 NSNumber *permissionsValue = @(permissions);
-                                
+
                                 // Retrieve any existing attributes
                                 NSMutableDictionary *attrs = [[NSMutableDictionary alloc] initWithDictionary:[fileManager attributesOfItemAtPath:fullPath error:nil]];
-                                
+
                                 // Set the value in the attributes dict
                                 [attrs setObject:permissionsValue forKey:NSFilePosixPermissions];
-                                
+
                                 // Update attributes
                                 if (![fileManager setAttributes:attrs ofItemAtPath:fullPath error:nil]) {
                                     // Unable to set the permissions attribute
@@ -700,7 +703,7 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                                 // Is a directory
                                 // assumed case
                                 break;
-                                
+
                             case ENOSPC:
                             case EMFILE:
                                 // No space left on device
@@ -708,7 +711,7 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                                 // Too many open files
                                 isSeriousError = YES;
                                 break;
-                                
+
                             default:
                                 // ignore case
                                 // Just log the error
@@ -720,7 +723,7 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                             }
                                 break;
                         }
-                        
+
                         if (isSeriousError) {
                             // serious case
                             unzippingError = [NSError errorWithDomain:NSPOSIXErrorDomain
@@ -738,6 +741,13 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                 } else {
                     // Let's assume error Z_DATA_ERROR is caused by an invalid password
                     // Let's assume other errors are caused by Content Not Readable
+                    NSString *message = [NSString stringWithFormat:@"Failed to read zip data"];
+                    NSLog(@"[SSZipArchive] %@", message);
+                    success = NO;
+                    unzippingError = [NSError errorWithDomain:@"SSZipArchiveErrorDomain"
+                                                         code:SSZipArchiveErrorCodeFailedToReadData
+                                                     userInfo:@{NSLocalizedDescriptionKey: message}];
+
                     success = NO;
                     break;
                 }
